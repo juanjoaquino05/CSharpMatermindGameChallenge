@@ -36,6 +36,9 @@ namespace CSharpMatermindGameChallenge
 
             List<ResultPeg> hints = StartGuess(code, guess);
 
+            // Shuffle hints
+            hints.Shuffle();
+
             // Return result
             return hints;
         }
