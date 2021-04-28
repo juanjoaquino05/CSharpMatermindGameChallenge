@@ -2,6 +2,7 @@
 namespace CSharpMatermindGameChallenge
 {
     using System.Collections.Generic;
+    using Exception;
 
     public enum CodePeg
     {
@@ -31,13 +32,14 @@ namespace CSharpMatermindGameChallenge
         public List<ResultPeg> GetHints(List<CodePeg> guess)
         {
             // Implement the logic here
-            if (ValidGuessList(guess)) throw new Exception("Invalid List");
+            if (!ValidGuessList(guess)) throw new InvalidListException("Invalid List");
+
+            return null;
         }
 
         private bool ValidGuessList(List<CodePeg> guess)
         {
-            // Implement the logic here
-            if (ValidGuessList()) throw new Exception("Invalid List");
+            return guess != null && guess.Count != this.code.Count; 
         }
     }
 
