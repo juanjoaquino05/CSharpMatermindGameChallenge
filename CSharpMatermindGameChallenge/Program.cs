@@ -10,18 +10,30 @@ namespace CSharpMatermindGameChallenge
         {
             try
             {
-                List<CodePeg> code = new List<CodePeg>() { CodePeg.Black, CodePeg.Green, CodePeg.White, CodePeg.Yellow };
+                // Initial code
+                List<CodePeg> code = new List<CodePeg>() { CodePeg.Black, CodePeg.White, CodePeg.Yellow, CodePeg.White };
 
+                // Starting game
                 Mastermind game = new Mastermind(code);
-                game.GetHints(code);
+
+                List<CodePeg> attemp = new List<CodePeg>() { CodePeg.White, CodePeg.Green, CodePeg.White, CodePeg.Yellow };
+
+                // Get hints
+                List<ResultPeg> list = game.GetHints(attemp);
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine(item);
+                }
             }
             catch (InvalidListException ex)
             {
+                // Invalid or incomplete list passed to hints
                 Console.WriteLine(ex.Message);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                Console.WriteLine("Something Happens!");
+                Console.WriteLine(ex.Message);
             }
         }
     }
