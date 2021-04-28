@@ -1,8 +1,8 @@
-﻿using CSharpMatermindGameChallenge.Exception;
+﻿
 using System;
 using System.Collections.Generic;
 
-namespace CSharpMatermindGameChallenge
+namespace Mastermind
 {
     public class Program
     {
