@@ -2,7 +2,6 @@
 namespace CSharpMatermindGameChallenge
 {
     using System.Collections.Generic;
-    using Exception;
     using System;
     using System.Threading;
 
