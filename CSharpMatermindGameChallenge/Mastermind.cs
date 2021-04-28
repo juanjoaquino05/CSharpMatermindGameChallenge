@@ -92,7 +92,7 @@ namespace Mastermind
         //Methods that evaluates black ocurrences
         public static void GetBlacks(List<CodePeg> code, List<CodePeg> guess, List<ResultPeg> hints)
         {
-            for (int x = 0; x < code.Count; x++)
+            for (int x = code.Count-1; x >= 0; x--)
             {
                 //Both color and position are equal
                 if (code[x].Equals(guess[x]))
@@ -100,6 +100,7 @@ namespace Mastermind
                     hints.Add(ResultPeg.Black);
                     code.RemoveAt(x);
                     guess.RemoveAt(x);
+
                 }
             }
         }
