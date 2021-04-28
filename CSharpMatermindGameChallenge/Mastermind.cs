@@ -1,5 +1,5 @@
 
-namespace CSharpMatermindGameChallenge
+namespace Mastermind
 {
     using System.Collections.Generic;
     using System;
