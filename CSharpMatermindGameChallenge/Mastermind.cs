@@ -100,7 +100,7 @@ namespace Mastermind
                     hints.Add(ResultPeg.Black);
                     code.RemoveAt(x);
                     guess.RemoveAt(x);
-                    x = 0;
+                    x--;
                 }
             }
         }
