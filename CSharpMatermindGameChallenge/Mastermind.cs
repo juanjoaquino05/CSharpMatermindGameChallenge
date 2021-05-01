@@ -4,6 +4,7 @@ namespace Mastermind
     using System.Collections.Generic;
     using System;
     using System.Threading;
+    using System.Collections;
 
     public enum CodePeg
     {
@@ -49,14 +50,11 @@ namespace Mastermind
         {
             List<ResultPeg> results = new List<ResultPeg>();
 
-            // Create another list of code to not alter the original
-            List<CodePeg> copyCode = new List<CodePeg>(code);
-
             // We first evaluate black to remove it in case they match 
-            Logic.GetBlacks(copyCode, guess, results);
+            List<int> unevaluatedCodePegs = Logic.GetBlacks(code, guess, results);
 
             // Then we get the whites ones
-            Logic.GetWhites(copyCode, guess, results);
+            Logic.GetWhites(code, unevaluatedCodePegs, guess, results);
 
             return results;
         }
@@ -90,29 +88,37 @@ namespace Mastermind
     public class Logic
     {
         //Methods that evaluates black ocurrences
-        public static void GetBlacks(List<CodePeg> code, List<CodePeg> guess, List<ResultPeg> hints)
+        public static List<int> GetBlacks(List<CodePeg> code, List<CodePeg> guess, List<ResultPeg> hints)
         {
-            for (int x = 0; x < code.Count; x++)
+            List<int> leftCode = new List<int>();
+
+            int codeCount = code.Count;
+            for (int codeIndex = 0, guessIndex = 0; codeIndex < codeCount; codeIndex++, guessIndex++)
             {
                 //Both color and position are equal
-                if (code[x].Equals(guess[x]))
+                if (code[codeIndex].Equals(guess[guessIndex]))
                 {
                     hints.Add(ResultPeg.Black);
-                    code.RemoveAt(x);
-                    guess.RemoveAt(x);
-                    x--;
+                    guess.RemoveAt(guessIndex);
+                    guessIndex--;
+                }
+                else
+                {
+                    leftCode.Add(codeIndex);
                 }
             }
+
+            return leftCode;
         }
 
         //Methods that evaluates white ocurrences
-        public static void GetWhites(List<CodePeg> code, List<CodePeg> guess, List<ResultPeg> hints)
+        public static void GetWhites(List<CodePeg> code, List<int> toEvaluateIndexes, List<CodePeg> guess, List<ResultPeg> hints)
         {
             for (int x = 0; x < guess.Count; x++)
             {
-                for (int y = 0; y < code.Count; y++)
+                for (int y = 0; y < toEvaluateIndexes.Count; y++)
                 {
-                    if (code[y].Equals(guess[x]))
+                    if (code[toEvaluateIndexes[y]].Equals(guess[x]))
                     {
                         hints.Add(ResultPeg.White);
                         break;
